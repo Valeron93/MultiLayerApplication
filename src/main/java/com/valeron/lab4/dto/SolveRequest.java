@@ -7,6 +7,6 @@ public class SolveRequest {
 
     public boolean withSteps;
 
-    public List<Integer> numbers;
+    public List<Integer> input;
 
 }

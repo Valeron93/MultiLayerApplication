@@ -1,10 +1,11 @@
 package com.valeron.lab4.solver;
 
-import java.util.List;
+import com.valeron.lab4.model.SolveWithStepsResult;
+import com.valeron.lab4.model.SolveSimpleResult;
 
 public interface EuclidSolver {
 
-    List<IntegerPair> solveWithSteps(IntegerPair numbers);
-    int solve(IntegerPair numbers);
+    SolveWithStepsResult solveWithSteps(IntegerPair input);
+    SolveSimpleResult solve(IntegerPair input);
 
 }
