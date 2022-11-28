@@ -1,16 +1,15 @@
 package com.valeron.lab4.solver;
 
-import java.io.Serializable;
 import java.util.List;
 
-public final class IntegerPair implements Serializable {
+public record IntegerPair(int first, int second) {
 
-    public final int first;
-    public final int second;
+    public int first() {
+        return first;
+    }
 
-    public IntegerPair(int first, int second) {
-        this.first = first;
-        this.second = second;
+    public int second() {
+        return second;
     }
 
     @Override

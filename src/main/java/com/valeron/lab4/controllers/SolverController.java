@@ -31,11 +31,11 @@ public class SolverController {
 
         final var pair = new IntegerPair(request.input.get(0), request.input.get(1));
 
-        if (pair.first <= 0 || pair.second <= 0) {
+        if (pair.first() <= 0 || pair.second() <= 0) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        final var response = request.withSteps
+        final SolveResult response = request.withSteps
                 ? solver.solveWithSteps(pair)
                 : solver.solve(pair);
 
