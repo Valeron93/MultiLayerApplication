@@ -19,7 +19,7 @@ public sealed abstract class SolveResult permits SolveWithStepsResult, SolveSimp
 
     public static SolveResult deserialize(String data) {
 
-        String[] split = data.split(",");
+        final String[] split = data.split(",");
 
         if (split.length < 3) {
             throw new RuntimeException("Failed to deserialize '" + data + "'");

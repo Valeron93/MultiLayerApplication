@@ -1,12 +1,10 @@
 package com.valeron.lab4.dao;
 
-import com.valeron.lab4.model.SolveResult;
-
 import java.util.Optional;
 
-public interface SimpleRepository {
+public interface SimpleRepository<E> {
 
-    int put(SolveResult element);
-    Optional<SolveResult> get(int id);
+    int put(E element);
+    Optional<E> get(int id);
 
 }

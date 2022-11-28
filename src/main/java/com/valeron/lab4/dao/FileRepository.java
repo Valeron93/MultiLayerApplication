@@ -6,15 +6,16 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-public class FileRepository implements SimpleRepository, Closeable {
+public class FileRepository implements SimpleRepository<SolveResult>, Closeable {
 
     @Value("${data.path}")
     private String filePath;
 
     private BufferedWriter writer;
-    private ArrayList<SolveResult> savedResults;
+    private List<SolveResult> savedResults;
 
 
     @PostConstruct
@@ -47,7 +48,7 @@ public class FileRepository implements SimpleRepository, Closeable {
     @Override
     public int put(SolveResult element) {
 
-        int index = savedResults.size();
+        final int index = savedResults.size();
 
         savedResults.add(element);
         try {

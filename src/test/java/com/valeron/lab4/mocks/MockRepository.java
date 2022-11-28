@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class MockRepository implements SimpleRepository {
+public class MockRepository implements SimpleRepository<SolveResult> {
 
-    private List<SolveResult> list = new ArrayList<>();
+    private final List<SolveResult> list = new ArrayList<>();
 
     @Override
     public int put(SolveResult element) {
