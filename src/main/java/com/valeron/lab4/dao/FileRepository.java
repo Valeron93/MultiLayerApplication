@@ -46,7 +46,7 @@ public class FileRepository implements SimpleRepository<SolveResult>, Closeable 
     }
 
     @Override
-    public int put(SolveResult element) {
+    public int save(SolveResult element) {
 
         final int index = savedResults.size();
 

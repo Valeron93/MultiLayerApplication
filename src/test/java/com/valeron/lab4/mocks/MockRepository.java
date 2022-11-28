@@ -13,7 +13,7 @@ public class MockRepository implements SimpleRepository<SolveResult> {
     private final List<SolveResult> list = new ArrayList<>();
 
     @Override
-    public int put(SolveResult element) {
+    public int save(SolveResult element) {
         System.out.println("added to test rep");
 
         int i = list.size();

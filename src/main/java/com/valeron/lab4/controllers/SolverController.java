@@ -2,6 +2,7 @@ package com.valeron.lab4.controllers;
 
 import com.valeron.lab4.dao.SimpleRepository;
 import com.valeron.lab4.dto.*;
+import com.valeron.lab4.model.SolveResult;
 import com.valeron.lab4.solver.*;
 
 import org.springframework.http.HttpStatus;
@@ -13,10 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class SolverController {
 
     private final EuclidSolver solver;
-    private final SimpleRepository repository;
+    private final SimpleRepository<SolveResult> repository;
 
     @Autowired
-    SolverController(EuclidSolver solver, SimpleRepository repository) {
+    SolverController(EuclidSolver solver, SimpleRepository<SolveResult> repository) {
         this.solver = solver;
         this.repository = repository;
     }
@@ -38,7 +39,7 @@ public class SolverController {
                 ? solver.solveWithSteps(pair)
                 : solver.solve(pair);
 
-        final var id = repository.put(response);
+        final var id = repository.save(response);
 
         return new ResponseEntity<>(new SolveResponse(id), HttpStatus.CREATED);
     }
