@@ -25,17 +25,20 @@ public class SolverController {
     @PostMapping(value = "/solve", produces = "application/json")
     public ResponseEntity<?> solve(@RequestBody SolveRequest request) {
 
-        if (request.input == null || request.input.size() != 2) {
+        final var input = request.getInput();
+
+        if (input.size() != 2) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        final var pair = new IntegerPair(request.input.get(0), request.input.get(1));
+
+        final var pair = new IntegerPair(input.get(0), input.get(1));
 
         if (pair.first() <= 0 || pair.second() <= 0) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        final SolveResult response = request.withSteps
+        final SolveResult response = request.getWithSteps()
                 ? solver.solveWithSteps(pair)
                 : solver.solve(pair);
 

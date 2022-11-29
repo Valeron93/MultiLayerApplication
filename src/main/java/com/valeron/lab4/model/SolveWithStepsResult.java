@@ -4,6 +4,7 @@ import com.valeron.lab4.solver.IntegerPair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public final class SolveWithStepsResult extends SolveResult {
 
@@ -39,5 +40,19 @@ public final class SolveWithStepsResult extends SolveResult {
         }
 
         return String.join(",", csv);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        SolveWithStepsResult that = (SolveWithStepsResult) o;
+        return result == that.result && Objects.equals(steps, that.steps);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), steps, result);
     }
 }

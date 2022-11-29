@@ -1,12 +1,17 @@
 package com.valeron.lab4.dto;
 
 
+import java.util.Collections;
 import java.util.List;
 
-public class SolveRequest {
+public record SolveRequest(List<Integer> input, boolean withSteps) {
 
-    public boolean withSteps;
+    public List<Integer> getInput() {
+        return Collections.unmodifiableList(input);
+    }
 
-    public List<Integer> input;
+    public boolean getWithSteps() {
+        return withSteps;
+    }
 
 }

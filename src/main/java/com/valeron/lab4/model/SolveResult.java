@@ -5,11 +5,11 @@ import com.valeron.lab4.solver.IntegerPair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public sealed abstract class SolveResult permits SolveWithStepsResult, SolveSimpleResult {
 
     public final List<Integer> input;
-
 
     public SolveResult(IntegerPair pair) {
         input = pair.toList();
@@ -53,4 +53,16 @@ public sealed abstract class SolveResult permits SolveWithStepsResult, SolveSimp
         return null;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SolveResult that = (SolveResult) o;
+        return Objects.equals(input, that.input);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(input);
+    }
 }
