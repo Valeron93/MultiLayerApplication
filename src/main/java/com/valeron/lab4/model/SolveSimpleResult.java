@@ -3,6 +3,8 @@ package com.valeron.lab4.model;
 
 import com.valeron.lab4.solver.IntegerPair;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public final class SolveSimpleResult extends SolveResult {
@@ -16,7 +18,14 @@ public final class SolveSimpleResult extends SolveResult {
 
     @Override
     public String serialize() {
-        return String.join(",", "simple", input.get(0).toString(), input.get(1).toString(), Integer.toString(result));
+        List<String> csv = new ArrayList<>(4);
+
+        csv.add("simple");
+        csv.add(input.get(0).toString());
+        csv.add(input.get(1).toString());
+        csv.add(Integer.toString(result));
+
+        return String.join(",", csv);
     }
 
     @Override
