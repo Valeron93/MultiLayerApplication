@@ -10,8 +10,4 @@ class Lab4ApplicationTests {
 	void contextLoads() {
 	}
 
-	@Test
-	void addonRep() {
-	}
-
 }

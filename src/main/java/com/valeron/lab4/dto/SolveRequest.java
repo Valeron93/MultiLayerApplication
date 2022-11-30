@@ -1,16 +1,22 @@
 package com.valeron.lab4.dto;
 
-import javax.validation.constraints.*;
+import com.valeron.lab4.constraints.*;
+
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class SolveRequest {
 
-    @NotNull
+    @ListSize(size = 2, message = "Input size has to be 2")
+    @ListMinValue(value = 1, message = "Input numbers has to be greater than zero")
+    @NotNull(message = "Input cannot be null")
     private final List<Integer> input;
 
-    public final boolean withSteps;
+    @NotNull
+    private final Boolean withSteps;
 
     public SolveRequest(List<Integer> input, boolean withSteps) {
         this.input = input;
@@ -21,7 +27,7 @@ public class SolveRequest {
         return Collections.unmodifiableList(input);
     }
 
-    public boolean getWithSteps() {
+    public Boolean getWithSteps() {
         return withSteps;
     }
 
@@ -30,7 +36,7 @@ public class SolveRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SolveRequest that = (SolveRequest) o;
-        return withSteps == that.withSteps && Objects.equals(input, that.input);
+        return Objects.equals(withSteps, that.withSteps) && Objects.equals(input, that.input);
     }
 
     @Override

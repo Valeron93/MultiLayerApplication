@@ -2,16 +2,16 @@ package com.valeron.lab4.controllers;
 
 import com.valeron.lab4.dao.SimpleRepository;
 import com.valeron.lab4.dto.*;
-import com.valeron.lab4.model.SolveResult;
+import com.valeron.lab4.model.CalculationResult;
 import com.valeron.lab4.solver.*;
 
+import jakarta.validation.*;
+import jakarta.validation.constraints.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import java.net.URI;
 
 @Validated
@@ -19,22 +19,21 @@ import java.net.URI;
 public class SolverController {
 
     private final EuclidSolver solver;
-    private final SimpleRepository<SolveResult> repository;
+    private final SimpleRepository<CalculationResult> repository;
 
     @Autowired
-    SolverController(EuclidSolver solver, SimpleRepository<SolveResult> repository) {
+    SolverController(EuclidSolver solver, SimpleRepository<CalculationResult> repository) {
         this.solver = solver;
         this.repository = repository;
     }
 
-    @Validated
     @PostMapping(value = "/solve", produces = "application/json")
     public ResponseEntity<?> solve(@RequestBody @Valid SolveRequest request) {
 
         final var input = request.getInput();
         final var pair = new IntegerPair(input.get(0), input.get(1));
 
-        final SolveResult response = request.getWithSteps()
+        final CalculationResult response = request.getWithSteps()
                 ? solver.solveWithSteps(pair)
                 : solver.solve(pair);
 
@@ -43,10 +42,12 @@ public class SolverController {
         return ResponseEntity.created(URI.create("/getSolved/" + id)).build();
     }
 
-
-    @Validated
     @GetMapping(value = "/getSolved/{id}", produces = "application/json")
-    public ResponseEntity<?> getSolved(@PathVariable @Valid @Min(0) Integer id) {
+    public ResponseEntity<?> getSolved(
+            @PathVariable
+            @Min(value = 0, message = "Id has to be greater or equal 0")
+            Integer id
+    ) {
 
         final var result = repository.get(id);
 

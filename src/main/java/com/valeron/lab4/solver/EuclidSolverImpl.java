@@ -1,14 +1,13 @@
 package com.valeron.lab4.solver;
 
-import com.valeron.lab4.model.SolveWithStepsResult;
-import com.valeron.lab4.model.SolveSimpleResult;
+import com.valeron.lab4.model.CalculationResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class EuclidSolverImpl implements EuclidSolver {
     @Override
-    public SolveWithStepsResult solveWithSteps(IntegerPair input) {
+    public CalculationResult solveWithSteps(IntegerPair input) {
         final List<IntegerPair> steps = new ArrayList<>();
 
         int a = input.first();
@@ -28,11 +27,15 @@ public final class EuclidSolverImpl implements EuclidSolver {
 
         final var result = a;
 
-        return new SolveWithStepsResult(input, result, steps);
+        return new CalculationResult()
+                .type("withSteps")
+                .input(input.toList())
+                .result(result)
+                .steps(steps.stream().map(IntegerPair::toList).toList());
     }
 
     @Override
-    public SolveSimpleResult solve(IntegerPair input) {
+    public CalculationResult solve(IntegerPair input) {
 
         int a = input.first();
         int b = input.second();
@@ -48,7 +51,10 @@ public final class EuclidSolverImpl implements EuclidSolver {
 
         final var result = a;
 
-        return new SolveSimpleResult(input, result);
+        return new CalculationResult()
+                .type("simple")
+                .input(input.toList())
+                .result(result);
     }
 
 }

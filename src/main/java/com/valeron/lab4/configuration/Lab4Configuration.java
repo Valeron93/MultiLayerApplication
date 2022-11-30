@@ -1,4 +1,4 @@
-package com.valeron.lab4;
+package com.valeron.lab4.configuration;
 
 import com.valeron.lab4.dao.*;
 import com.valeron.lab4.model.*;
@@ -10,7 +10,7 @@ public class Lab4Configuration {
 
     @Bean
     @Scope("singleton")
-    public SimpleRepository<SolveResult> solveResultRepository() {
+    public SimpleRepository<CalculationResult> solveResultRepository() {
         return new FileRepository();
     }
 
