@@ -8,12 +8,12 @@ import java.util.List;
 public final class EuclidSolverImpl implements EuclidSolver {
     @Override
     public CalculationResult solveWithSteps(IntegerPair input) {
-        final List<IntegerPair> steps = new ArrayList<>();
+        final List<List<Integer>> steps = new ArrayList<>();
 
         int a = input.first();
         int b = input.second();
 
-        steps.add(new IntegerPair(a, b));
+        steps.add(List.of(a, b));
 
         while (a != b) {
             if (a > b) {
@@ -22,7 +22,7 @@ public final class EuclidSolverImpl implements EuclidSolver {
             else {
                 b = b - a;
             }
-            steps.add(new IntegerPair(a, b));
+            steps.add(List.of(a, b));
         }
 
         final var result = a;
@@ -31,7 +31,7 @@ public final class EuclidSolverImpl implements EuclidSolver {
                 .type("withSteps")
                 .input(input.toList())
                 .result(result)
-                .steps(steps.stream().map(IntegerPair::toList).toList());
+                .steps(steps);
     }
 
     @Override

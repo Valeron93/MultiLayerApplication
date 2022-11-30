@@ -11,7 +11,7 @@ public class Lab4Configuration {
     @Bean
     @Scope("singleton")
     public SimpleRepository<CalculationResult> solveResultRepository() {
-        return new FileRepository();
+        return new CalculationResultFileStorage();
     }
 
     @Bean

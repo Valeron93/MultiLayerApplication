@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import java.io.*;
 import java.util.*;
 
-public class FileRepository implements SimpleRepository<CalculationResult>, Closeable {
+public class CalculationResultFileStorage implements SimpleRepository<CalculationResult>, Closeable {
 
     @Value("${data.path}")
     private String filePath;
