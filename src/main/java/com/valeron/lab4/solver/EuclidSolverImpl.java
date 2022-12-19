@@ -8,10 +8,15 @@ import java.util.List;
 public final class EuclidSolverImpl implements EuclidSolver {
     @Override
     public CalculationResult solveWithSteps(IntegerPair input) {
+
         final List<List<Integer>> steps = new ArrayList<>();
 
         int a = input.first();
         int b = input.second();
+
+        if (a <= 0 || b <= 0) {
+            throw new ArithmeticException();
+        }
 
         steps.add(List.of(a, b));
 
@@ -39,6 +44,10 @@ public final class EuclidSolverImpl implements EuclidSolver {
 
         int a = input.first();
         int b = input.second();
+
+        if (a <= 0 || b <= 0) {
+            throw new ArithmeticException();
+        }
 
         while (a != b) {
             if (a > b) {

@@ -39,7 +39,9 @@ public class SolverController {
 
         final var id = repository.save(response);
 
-        return ResponseEntity.created(URI.create("/getSolved/" + id)).build();
+        return ResponseEntity
+                .created(URI.create("/getSolved/" + id))
+                .body(response);
     }
 
     @GetMapping(value = "/getSolved/{id}", produces = "application/json")

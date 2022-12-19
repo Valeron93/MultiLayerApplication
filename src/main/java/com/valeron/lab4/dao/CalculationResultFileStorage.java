@@ -2,29 +2,20 @@ package com.valeron.lab4.dao;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.valeron.lab4.model.CalculationResult;
-import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.*;
 import java.util.*;
 
 public class CalculationResultFileStorage implements SimpleRepository<CalculationResult>, Closeable {
 
-    @Value("${data.path}")
-    private String filePath;
-
-    private BufferedWriter writer;
-    private Map<Integer, CalculationResult> map;
-
-    private ObjectMapper objectMapper;
+    private final BufferedWriter writer;
+    private final Map<Integer, CalculationResult> map;
+    private final ObjectMapper objectMapper;
 
 
-    @PostConstruct
-    void init() throws IOException {
+    public CalculationResultFileStorage(File file) throws IOException {
         objectMapper = new ObjectMapper();
         map = new HashMap<>();
-
-        File file = new File(filePath);
 
         if (!file.exists()) {
             if (!file.createNewFile()) {
@@ -33,7 +24,7 @@ public class CalculationResultFileStorage implements SimpleRepository<Calculatio
         }
 
         if (!file.canRead() || !file.canWrite()) {
-            throw new IOException("Failed to open " + filePath + " for reading and writing");
+            throw new IOException("Failed to open " + file.getAbsolutePath() + " for reading and writing");
         }
 
         try (var reader = new BufferedReader(new FileReader(file))) {
@@ -62,11 +53,11 @@ public class CalculationResultFileStorage implements SimpleRepository<Calculatio
         element.id(index);
 
         try {
-
             var json = objectMapper.writeValueAsString(element);
 
             writer.write(json);
             writer.write('\n');
+            writer.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
